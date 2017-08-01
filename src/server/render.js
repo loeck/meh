@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { matchPath } from 'react-router-dom'
@@ -26,9 +27,9 @@ export default stats => async (req, res) => {
 
     await Promise.all(promises)
 
-    const root = App(store, StaticRouter, { location: req.url, context })
+    const Component = App(store, StaticRouter, { location: req.url, context })
 
-    const page = <Html stats={stats} state={store.getState()} content={renderToString(root)} />
+    const page = <Html stats={stats} state={store.getState()} content={renderToString(Component)} />
 
     res.end(`<!doctype html>${renderToStaticMarkup(page)}`)
   } catch (err) {

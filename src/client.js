@@ -12,6 +12,8 @@ import App from 'components/App'
 const history = createHistory()
 const store = createStore(history, window.__INITIAL_STATE__)
 
+import 'styles/main.scss'
+
 const render = Component => {
   ReactDOM.render(
     <AppContainer>

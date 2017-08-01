@@ -4,7 +4,10 @@ import thunk from 'redux-thunk'
 
 import reducer from 'reducers'
 
-const devTools = __BROWSER__ && window.devToolsExtension ? window.devToolsExtension() : f => f
+const devTools =
+  __BROWSER__ && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : f => f
 
 export default (history, initialState) => {
   const middlewares = [routerMiddleware(history), thunk]
