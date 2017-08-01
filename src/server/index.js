@@ -7,13 +7,13 @@ import render from 'server/render'
 
 const server = express()
 
-const stats = config.env === 'production' ? require(path.join(config.distFolder, 'stats.json')) : {}
+const stats = __ENV__ === 'production' ? require(path.join(config.distFolder, 'stats.json')) : {}
 
-if (config.env === 'development') {
+if (__ENV__ === 'development') {
   require('./webpack')(server)
 }
 
-if (config.env === 'production') {
+if (__ENV__ === 'production') {
   server.use(compression())
   server.use('/dist', express.static(config.distFolder))
 }
@@ -22,5 +22,5 @@ server.use('/assets', express.static(config.assetsFolder))
 server.use(render(stats))
 
 server.listen(config.port, 'localhost', () => {
-  console.log(`> http://localhost:${config.port} - ${config.env}`) // eslint-disable-line
+  console.log(`> http://localhost:${config.port} - ${__ENV__}`) // eslint-disable-line
 })
