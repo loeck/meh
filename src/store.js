@@ -9,7 +9,7 @@ const devTools =
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : f => f
 
-export default (history, initialState) => {
+export default (history, initialState = {}) => {
   const middlewares = [routerMiddleware(history), thunk]
 
   const enhancers = compose(applyMiddleware(...middlewares), devTools)
