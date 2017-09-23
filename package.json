@@ -5,9 +5,9 @@
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production webpack --progress --hide-modules --config webpack/build.babel.js",
     "lint": "eslint src webpack",
-    "prettier": "prettier --print-width 100 --single-quote --trailing-comma all --no-semi --write \"{webpack,src}/**/*.?(js|?(s)css|json)\"",
+    "prettier": "prettier --write \"{webpack,src}/**/*.?(js|?(s)css|json)\"",
     "start": "node index",
-    "dev": "NODE_ENV=development yarn start"
+    "dev": "NODE_ENV=development nodemon index"
   },
   "dependencies": {
     "compression": "^1.6.2",
@@ -49,6 +49,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "ignore-styles": "^5.0.1",
     "node-sass": "^4.5.3",
+    "nodemon": "^1.12.1",
     "prettier": "^1.5.3",
     "react-hot-loader": "next",
     "sass-loader": "^6.0.6",
