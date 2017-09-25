@@ -6,8 +6,8 @@
     "build": "rm -rf dist && NODE_ENV=production webpack --progress --hide-modules --config webpack/build.babel.js",
     "lint": "eslint src webpack",
     "prettier": "prettier --write \"{webpack,src}/**/*.?(js|?(s)css|json)\"",
-    "start": "node index",
-    "dev": "NODE_ENV=development nodemon index"
+    "start": "node index.js",
+    "dev": "NODE_ENV=development nodemon index.js"
   },
   "dependencies": {
     "compression": "^1.6.2",
