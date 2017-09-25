@@ -5,6 +5,8 @@ import path from 'path'
 import config from 'config'
 import render from 'server/render'
 
+const { PORT } = process.env
+
 const server = express()
 
 const stats = __ENV__ === 'production' ? require(path.join(config.distFolder, 'stats.json')) : {}
@@ -21,6 +23,6 @@ if (__ENV__ === 'production') {
 server.use('/assets', express.static(config.assetsFolder))
 server.use(render(stats))
 
-server.listen(config.port, 'localhost', () => {
-  console.log(`> http://localhost:${config.port} - ${__ENV__}`) // eslint-disable-line
+server.listen(PORT, 'localhost', () => {
+  console.log(`> http://localhost:${PORT} - ${__ENV__}`) // eslint-disable-line
 })
