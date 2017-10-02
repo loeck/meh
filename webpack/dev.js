@@ -14,11 +14,13 @@ export default {
     rules: [
       {
         test: /\.js$/,
-        loader: 'happypack/loader',
+        use: 'happypack/loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader', 'autoprefixer-loader'],
+        exclude: /node_modules/,
       },
     ],
   },

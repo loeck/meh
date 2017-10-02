@@ -1,10 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import serialize from 'serialize-javascript'
 
-const Html = ({ content, state, stats: { styles, main = 'bundle.js' } }) => (
-  <html lang="en">
+import webpackConfig from '../../webpack/base'
+
+const Html = ({
+  content,
+  lang,
+  state,
+  stats: { styles, main = webpackConfig.output.filename },
+  title,
+}) => (
+  <html lang={lang}>
     <head>
-      <title>meh</title>
+      <title>{title}</title>
 
       <meta charSet="utf-8" />
       <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
@@ -24,5 +33,24 @@ const Html = ({ content, state, stats: { styles, main = 'bundle.js' } }) => (
     </body>
   </html>
 )
+
+Html.defaultProps = {
+  lang: 'en',
+  title: 'Meh',
+  content: '',
+  state: {},
+  stats: {},
+}
+
+Html.propTypes = {
+  lang: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  state: PropTypes.object,
+  stats: PropTypes.shape({
+    main: PropTypes.string,
+    styles: PropTypes.string,
+  }),
+}
 
 export default Html
