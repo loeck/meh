@@ -1,6 +1,7 @@
-import webpack from 'webpack'
 import { StatsWriterPlugin } from 'webpack-stats-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HappyPack from 'happypack'
+import webpack from 'webpack'
 
 import webpackConfig from './base'
 
@@ -16,7 +17,7 @@ export default {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: 'happypack/loader',
         exclude: /node_modules/,
       },
       {
@@ -32,6 +33,8 @@ export default {
 
   plugins: [
     ...webpackConfig.plugins,
+
+    new HappyPack({ loaders: ['babel-loader?sourceMap'] }),
 
     new ExtractTextPlugin('styles-[hash].css'),
 

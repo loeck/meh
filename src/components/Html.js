@@ -1,7 +1,7 @@
 import React from 'react'
 import serialize from 'serialize-javascript'
 
-const Html = ({ content, state, stats: { styles, main = 'bundle.js' } }) =>
+const Html = ({ content, state, stats: { styles, main = 'bundle.js' } }) => (
   <html lang="en">
     <head>
       <title>meh</title>
@@ -23,5 +23,6 @@ const Html = ({ content, state, stats: { styles, main = 'bundle.js' } }) =>
       <script src={`/dist/${main}`} />
     </body>
   </html>
+)
 
 export default Html

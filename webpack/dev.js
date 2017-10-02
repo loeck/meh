@@ -1,3 +1,4 @@
+import HappyPack from 'happypack'
 import webpack from 'webpack'
 
 import webpackConfig from './base'
@@ -13,7 +14,7 @@ export default {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'happypack/loader',
       },
       {
         test: /\.scss$/,
@@ -24,6 +25,7 @@ export default {
 
   plugins: [
     ...webpackConfig.plugins,
+    new HappyPack({ loaders: ['babel-loader'] }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],

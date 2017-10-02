@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
 
 import { AppContainer } from 'react-hot-loader'
 import { ConnectedRouter } from 'react-router-redux'
@@ -15,10 +15,8 @@ const history = createHistory()
 const store = createStore(history, window.__INITIAL_STATE__)
 
 const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-      {Component(store, ConnectedRouter, { history })}
-    </AppContainer>,
+  hydrate(
+    <AppContainer>{Component(store, ConnectedRouter, { history })}</AppContainer>,
     document.getElementById('root'),
   )
 }
