@@ -27,7 +27,7 @@ export default {
 
   plugins: [
     ...webpackConfig.plugins,
-    new HappyPack({ loaders: ['babel-loader'] }),
+    new HappyPack({ loaders: ['babel-loader'], verbose: false }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],

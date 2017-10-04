@@ -34,7 +34,7 @@ export default {
   plugins: [
     ...webpackConfig.plugins,
 
-    new HappyPack({ loaders: ['babel-loader?sourceMap'] }),
+    new HappyPack({ loaders: ['babel-loader?sourceMap'], verbose: false }),
 
     new ExtractTextPlugin('styles-[hash].css'),
 
