@@ -23,8 +23,9 @@
     "global-require": 0,
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
+    "jsx-a11y/href-no-hash": 0,
     "no-underscore-dangle": 0,
     "react/forbid-prop-types": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
