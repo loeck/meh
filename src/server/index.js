@@ -23,6 +23,6 @@ if (__ENV__ === 'production') {
 server.use('/assets', express.static(config.assetsFolder))
 server.use(render(stats))
 
-server.listen(PORT, 'localhost', () => {
+server.listen(PORT, () => {
   console.log(`> http://localhost:${PORT} - ${__ENV__}`) // eslint-disable-line
 })
