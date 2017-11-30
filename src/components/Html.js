@@ -16,7 +16,7 @@ const Html = ({
       <title>{title}</title>
 
       <meta charSet="utf-8" />
-      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
       <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
