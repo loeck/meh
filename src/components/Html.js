@@ -8,7 +8,7 @@ const Html = ({
   content,
   lang,
   state,
-  stats: { styles, main = webpackConfig.output.filename },
+  stats: { styles, main = webpackConfig.output.filename, vendor, manifest },
   title,
 }) => (
   <html lang={lang}>
@@ -17,7 +17,7 @@ const Html = ({
 
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
 
       <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
@@ -32,6 +32,8 @@ const Html = ({
         id="root"
         dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
       />
+      {manifest && <script src={`/dist/${manifest}`} />}
+      {vendor && <script src={`/dist/${vendor}`} />}
       <script src={`/dist/${main}`} />
     </body>
   </html>

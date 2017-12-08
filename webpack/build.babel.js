@@ -1,16 +1,17 @@
 import { StatsWriterPlugin } from 'webpack-stats-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HappyPack from 'happypack'
+import merge from 'webpack-merge'
 import webpack from 'webpack'
 
+import loaderOptions from './loaderOptions'
 import webpackConfig from './base'
 
-export default {
-  ...webpackConfig,
-
+export default merge.strategy({
+  entry: 'prepend',
+})(webpackConfig, {
   output: {
-    ...webpackConfig.output,
-    filename: 'bundle-[hash].js',
+    filename: '[name]-[chunkhash].js',
   },
 
   module: {
@@ -24,7 +25,20 @@ export default {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader', 'autoprefixer-loader'],
+          use: [
+            {
+              loader: 'css-loader',
+              options: loaderOptions.cssLoader,
+            },
+            {
+              loader: 'postcss-loader',
+              options: loaderOptions.postcssLoader,
+            },
+            {
+              loader: 'sass-loader',
+              options: loaderOptions.sassLoader,
+            },
+          ],
         }),
         exclude: /node_modules/,
       },
@@ -32,11 +46,22 @@ export default {
   },
 
   plugins: [
-    ...webpackConfig.plugins,
-
     new HappyPack({ loaders: ['babel-loader?sourceMap'], verbose: false }),
 
-    new ExtractTextPlugin('styles-[hash].css'),
+    new ExtractTextPlugin('styles-[chunkhash].css'),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: m => /node_modules/.test(m.context),
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity,
+    }),
+
+    new webpack.NamedModulesPlugin(),
+    new webpack.NamedChunksPlugin(),
 
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -62,6 +87,8 @@ export default {
         JSON.stringify({
           main: data.assetsByChunkName.main[0],
           styles: data.assetsByChunkName.main[1],
+          vendor: data.assetsByChunkName.vendor,
+          manifest: data.assetsByChunkName.manifest,
         }),
     }),
   ],
@@ -77,4 +104,4 @@ export default {
     cached: false,
     cachedAssets: false,
   },
-}
+})
