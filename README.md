@@ -1,11 +1,9 @@
-React Boilerplate
-===========================
+# React Boilerplate
 
 ## Requirements
 
- - nodejs v8.x (https://nodejs.org/en/)
- - yarn latest (https://yarnpkg.com/fr/docs/install)
-
+* nodejs v8.x (https://nodejs.org/en/)
+* yarn latest (https://yarnpkg.com/fr/docs/install)
 
 ## Installation
 
@@ -26,8 +24,9 @@ yarn dev
 ## Production
 
 ```
-NODE_ENV=production yarn build
+yarn build
 ```
+
 ```
 NODE_ENV=production yarn start
 ```
