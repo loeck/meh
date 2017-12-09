@@ -2,7 +2,6 @@ require('dotenv').config()
 
 require('babel-register')
 require('babel-polyfill')
-require('ignore-styles')
 
 const globals = require('./src/globals')
 

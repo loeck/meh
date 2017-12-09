@@ -2,10 +2,9 @@ import Dotenv from 'dotenv-webpack'
 import path from 'path'
 import webpack from 'webpack'
 
-import paths from './paths'
-
-import config from '../src/config'
-import * as globals from '../src/globals'
+import paths from 'paths'
+import config from 'config'
+import * as globals from 'globals'
 
 export default {
   entry: ['babel-polyfill', './src/client'],
@@ -15,9 +14,9 @@ export default {
   },
 
   output: {
-    path: `${config.distFolder}`,
-    filename: '[name].js',
-    publicPath: '/',
+    path: `${paths.distFolder}`,
+    filename: 'bundle.js',
+    publicPath: '/dist/',
   },
 
   module: {
@@ -43,7 +42,7 @@ export default {
             options: {
               limit: 8192,
               minetype: 'application/font-woff',
-              name: 'assets/fonts/[hash].[ext]',
+              name: `${config.fontsFolder}/[hash].[ext]`,
             },
           },
         ],
@@ -55,7 +54,7 @@ export default {
           {
             loader: 'file-loader',
             options: {
-              name: 'assets/fonts/[hash].[ext]',
+              name: `${config.fontsFolder}/[hash].[ext]`,
             },
           },
         ],
@@ -68,7 +67,10 @@ export default {
     new Dotenv(),
 
     new webpack.DefinePlugin({
-      ...globals,
+      ...Object.keys(globals).reduce((acc, key) => {
+        acc[key] = JSON.stringify(globals[key])
+        return acc
+      }, {}),
       __BROWSER__: JSON.stringify(true),
       'process.env.NODE_ENV': JSON.stringify(globals.__ENV__),
     }),

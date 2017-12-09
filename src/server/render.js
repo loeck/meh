@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { ServerStyleSheet } from 'styled-components'
 import { StaticRouter } from 'react-router'
 import { matchPath } from 'react-router-dom'
 
@@ -17,6 +18,8 @@ export default stats => async (req, res) => {
     const context = {}
     const promises = []
 
+    const sheet = new ServerStyleSheet()
+
     routes.some(route => {
       const match = matchPath(req.url, route)
       if (match && route.load) {
@@ -29,7 +32,9 @@ export default stats => async (req, res) => {
 
     const Component = App(store, StaticRouter, { location: req.url, context })
 
-    const page = <Html stats={stats} state={store.getState()} content={renderToString(Component)} />
+    const content = renderToString(sheet.collectStyles(Component))
+    const styles = __DEV__ ? '' : sheet.getStyleElement()
+    const page = <Html stats={stats} state={store.getState()} styles={styles} content={content} />
 
     res.end(`<!doctype html>${renderToStaticMarkup(page)}`)
   } catch (err) {

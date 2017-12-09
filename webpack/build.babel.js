@@ -1,15 +1,11 @@
 import { StatsWriterPlugin } from 'webpack-stats-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HappyPack from 'happypack'
 import merge from 'webpack-merge'
 import webpack from 'webpack'
 
-import loaderOptions from './loaderOptions'
 import webpackConfig from './base'
 
-export default merge.strategy({
-  entry: 'prepend',
-})(webpackConfig, {
+export default merge(webpackConfig, {
   output: {
     filename: '[name]-[chunkhash].js',
   },
@@ -21,34 +17,11 @@ export default merge.strategy({
         use: 'happypack/loader',
         exclude: /node_modules/,
       },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: loaderOptions.cssLoader,
-            },
-            {
-              loader: 'postcss-loader',
-              options: loaderOptions.postcssLoader,
-            },
-            {
-              loader: 'sass-loader',
-              options: loaderOptions.sassLoader,
-            },
-          ],
-        }),
-        exclude: /node_modules/,
-      },
     ],
   },
 
   plugins: [
     new HappyPack({ loaders: ['babel-loader?sourceMap'], verbose: false }),
-
-    new ExtractTextPlugin('styles-[chunkhash].css'),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -85,8 +58,7 @@ export default merge.strategy({
     new StatsWriterPlugin({
       transform: data =>
         JSON.stringify({
-          main: data.assetsByChunkName.main[0],
-          styles: data.assetsByChunkName.main[1],
+          main: data.assetsByChunkName.main,
           vendor: data.assetsByChunkName.vendor,
           manifest: data.assetsByChunkName.manifest,
         }),

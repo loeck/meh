@@ -1,5 +1,3 @@
 {
-  "verbose": true,
-  "watch": ["src/server/*"],
-  "ignore": ["src/components/*", "src/assets/*", "src/reducers/*", "src/styles/*"]
+  "watch": ["src/server/*"]
 }

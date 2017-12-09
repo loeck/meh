@@ -1,5 +1,13 @@
 import React from 'react'
 
-const Home = () => <div>\o/</div>
+import styled from 'styled-components'
 
-export default Home
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  min-height: 100vh;
+`
+
+export default () => <Wrapper>\o/</Wrapper>
