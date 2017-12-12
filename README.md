@@ -1,4 +1,4 @@
-# React Boilerplate
+# Meh starter
 
 ## Requirements
 

@@ -5,5 +5,4 @@ export default {
   distFolder: path.join(__dirname, '../dist'),
   nodeModules: path.resolve(__dirname, '../node_modules'),
   src: path.resolve(__dirname, '../src'),
-  styles: path.resolve(__dirname, '../src/styles'),
 }
