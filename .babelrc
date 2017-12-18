@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "targets": {
           "browsers": ["last 2 versions", "ie >= 11"],
@@ -9,8 +9,8 @@
         }
       }
     ],
-    "react",
-    "stage-0"
+    "@babel/react",
+    "@babel/stage-0"
   ],
   "plugins": [
     "lodash",

@@ -7,7 +7,7 @@ import config from 'config'
 import * as globals from 'globals'
 
 export default {
-  entry: ['babel-polyfill', './src/client'],
+  entry: ['@babel/polyfill', './src/client'],
 
   resolve: {
     modules: [paths.src, paths.nodeModules],
