@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* nodejs v8.x (https://nodejs.org/en/)
+* nodejs v9.x (https://nodejs.org/en/)
 * yarn latest (https://yarnpkg.com/fr/docs/install)
 
 ## Installation
@@ -18,7 +18,7 @@ cp .env.example .env
 ## Development
 
 ```
-yarn dev
+yarn start
 ```
 
 ## Production

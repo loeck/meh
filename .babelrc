@@ -3,6 +3,7 @@
     [
       "@babel/env",
       {
+        "loose": true,
         "targets": {
           "browsers": ["last 2 versions", "ie >= 11"],
           "node": "current"
@@ -14,6 +15,7 @@
   ],
   "plugins": [
     "add-module-exports",
+    "styled-components",
     [
       "module-resolver",
       {

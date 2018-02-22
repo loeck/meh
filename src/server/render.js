@@ -1,6 +1,5 @@
 import React from 'react'
-
-import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { StaticRouter } from 'react-router'
 import { matchPath } from 'react-router-dom'
@@ -36,7 +35,12 @@ export default stats => async (req, res) => {
     const styles = __DEV__ ? '' : sheet.getStyleElement()
     const page = <Html stats={stats} state={store.getState()} styles={styles} content={content} />
 
-    res.end(`<!doctype html>${renderToStaticMarkup(page)}`)
+    const stream = sheet.interleaveWithNodeStream(renderToNodeStream(page))
+
+    res.write('<!doctype html>')
+
+    stream.pipe(res, { end: false })
+    stream.on('end', () => res.end())
   } catch (err) {
     res.status(500).send(err.stack)
   }

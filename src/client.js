@@ -1,5 +1,6 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
+import { consolidateStreamedStyles } from 'styled-components'
 
 import { AppContainer } from 'react-hot-loader'
 import { ConnectedRouter } from 'react-router-redux'
@@ -19,6 +20,7 @@ const render = Component => {
   )
 }
 
+consolidateStreamedStyles()
 render(App)
 
 if (module.hot) {
