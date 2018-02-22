@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production webpack --progress --hide-modules --config webpack/build.babel.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "lint": "eslint src webpack",
     "prettier": "prettier --write \"{webpack,src}/**/*.{js,json}\"",
-    "start": "NODE_ENV=development nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "compression": "^1.7.2",

@@ -18,7 +18,7 @@ cp .env.example .env
 ## Development
 
 ```
-yarn start
+yarn dev
 ```
 
 ## Production
