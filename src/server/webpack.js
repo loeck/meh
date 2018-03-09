@@ -8,7 +8,7 @@ export default server => {
   const compiler = webpack(webpackConfig)
 
   const devMiddlewareConfig = {
-    noInfo: true,
+    logLevel: 'error',
     publicPath: webpackConfig.output.publicPath,
   }
 

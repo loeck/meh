@@ -10,7 +10,7 @@ const Html = ({
   lang,
   state,
   styles,
-  stats: { main = webpackConfig.output.filename, vendor, manifest },
+  stats: { main = webpackConfig.output.filename, vendor },
   title,
 }) => (
   <html lang={lang}>
@@ -30,7 +30,6 @@ const Html = ({
         id="root"
         dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
       />
-      {manifest && <script src={`/dist/${manifest}`} />}
       {vendor && <script src={`/dist/${vendor}`} />}
       <script src={`/dist/${main}`} />
     </body>

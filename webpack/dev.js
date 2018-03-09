@@ -1,10 +1,11 @@
-import HappyPack from 'happypack'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 
 import webpackConfig from './base'
 
 export default merge(webpackConfig, {
+  mode: 'development',
+
   devtool: 'eval',
 
   entry: {
@@ -15,16 +16,13 @@ export default merge(webpackConfig, {
     rules: [
       {
         test: /\.js$/,
-        use: 'happypack/loader',
+        use: {
+          loader: 'babel-loader',
+        },
         exclude: /node_modules/,
       },
     ],
   },
 
-  plugins: [
-    new HappyPack({ loaders: ['babel-loader'], verbose: false }),
-
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()],
 })

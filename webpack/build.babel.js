@@ -1,11 +1,12 @@
 import { StatsWriterPlugin } from 'webpack-stats-plugin'
-import HappyPack from 'happypack'
 import merge from 'webpack-merge'
-import webpack from 'webpack'
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 
 import webpackConfig from './base'
 
 export default merge(webpackConfig, {
+  mode: 'production',
+
   output: {
     filename: '[name]-[chunkhash].js',
   },
@@ -14,66 +15,52 @@ export default merge(webpackConfig, {
     rules: [
       {
         test: /\.js$/,
-        use: 'happypack/loader',
+        use: {
+          loader: 'babel-loader',
+        },
         exclude: /node_modules/,
       },
     ],
   },
 
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          compress: true,
+          ecma: 8,
+          ie8: false,
+          keep_fnames: false,
+          mangle: true,
+          nameCache: null,
+          output: {
+            comments: false,
+            beautify: false,
+          },
+          safari10: false,
+          toplevel: false,
+          warnings: false,
+        },
+      }),
+    ],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+        },
+      },
+    },
+  },
+
   plugins: [
-    new HappyPack({ loaders: ['babel-loader?sourceMap'], verbose: false }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: m => /node_modules/.test(m.context),
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity,
-    }),
-
-    new webpack.NamedModulesPlugin(),
-    new webpack.NamedChunksPlugin(),
-
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        comparisons: true,
-        conditionals: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-        screw_ie8: true,
-        sequences: true,
-        unused: true,
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-    }),
-
     new StatsWriterPlugin({
       transform: data =>
         JSON.stringify({
           main: data.assetsByChunkName.main,
           vendor: data.assetsByChunkName.vendor,
-          manifest: data.assetsByChunkName.manifest,
         }),
     }),
   ],
-
-  stats: {
-    colors: true,
-    reasons: false,
-    hash: false,
-    version: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    cached: false,
-    cachedAssets: false,
-  },
 })
